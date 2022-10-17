@@ -66,6 +66,10 @@ function Body(bodyConfig, matrix, world) {
   if (bodyConfig.angularFactor) {
     this.angularFactor.copy(bodyConfig.angularFactor);
   }
+  this.linearFactor = new THREE.Vector3(1, 1, 1);
+  if (bodyConfig.linearFactor) {
+    this.linearFactor.copy(bodyConfig.linearFactor);
+  }
   this.activationState =
     bodyConfig.activationState && ACTIVATION_STATES.indexOf(bodyConfig.activationState) !== -1
       ? bodyConfig.activationState
@@ -128,7 +132,13 @@ Body.prototype._initBody = (function() {
 
     const angularFactor = new Ammo.btVector3(this.angularFactor.x, this.angularFactor.y, this.angularFactor.z);
     this.physicsBody.setAngularFactor(angularFactor);
+
     Ammo.destroy(angularFactor);
+
+    const linearFactor = new Ammo.btVector3(this.linearFactor.x, this.linearFactor.y, this.linearFactor.z);
+    this.physicsBody.setLinearFactor(linearFactor);
+
+    Ammo.destroy(linearFactor);
 
     if (!almostEqualsBtVector3(0.001, this.gravity, this.world.physicsWorld.getGravity())) {
       this.physicsBody.setGravity(this.gravity);
