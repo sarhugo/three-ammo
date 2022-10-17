@@ -104,6 +104,18 @@ const tick = () => {
           break;
         case MESSAGE_TYPES.ACTIVATE_BODY:
           activateBody(message);
+          break;
+        case MESSAGE_TYPES.APPLY_FORCE:
+          applyForceToBody(message);
+          break;
+        case MESSAGE_TYPES.APPLY_IMPULSE:
+          applyImpulseToBody(message);
+          break;
+        case MESSAGE_TYPES.SET_LINEAR_VELOCITY:
+          setLinearVelocity(message);
+          break;
+        case MESSAGE_TYPES.SET_ANGULAR_VELOCITY:
+          setAngularVelocity(message);
       }
     }
 
@@ -273,6 +285,30 @@ function resetDynamicBody({ uuid }) {
 function activateBody({ uuid }) {
   if (bodies[uuid]) {
     bodies[uuid].physicsBody.activate();
+  }
+}
+
+function applyForceToBody({ uuid, vec }) {
+  if (bodies[uuid]) {
+    bodies[uuid].physicsBody.applyForce(vec);
+  }
+}
+
+function applyImpulseToBody({ uuid, vec }) {
+  if (bodies[uuid]) {
+    bodies[uuid].physicsBody.applyCentralImpulse(vec);
+  }
+}
+
+function setLinearVelocity({ uuid, vec }) {
+  if (bodies[uuid]) {
+    bodies[uuid].physicsBody.getLinearVelocity().setValue(vec.x, vec.y, vec.z);
+  }
+}
+
+function setAngularVelocity({ uuid, vec }) {
+  if (bodies[uuid]) {
+    bodies[uuid].physicsBody.getAngularVelocity().setValue(vec.x, vec.y, vec.z);
   }
 }
 

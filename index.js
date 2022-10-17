@@ -119,6 +119,38 @@ export const WorkerHelpers = function(ammoWorker) {
     });
   };
 
+  const applyForceToBody = function(uuid, vec) {
+    ammoWorker.postMessage({
+      type: MESSAGE_TYPES.APPLY_FORCE,
+      uuid,
+      vec
+    });
+  };
+
+  const applyImpulseToBody = function(uuid, vec) {
+    ammoWorker.postMessage({
+      type: MESSAGE_TYPES.APPLY_IMPULSE,
+      uuid,
+      vec
+    });
+  };
+
+  const setLinearVelocity = function(uuid, vec) {
+    ammoWorker.postMessage({
+      type: MESSAGE_TYPES.SET_LINEAR_VELOCITY,
+      uuid,
+      vec
+    });
+  };
+
+  const setAngularVelocity = function(uuid, vec) {
+    ammoWorker.postMessage({
+      type: MESSAGE_TYPES.SET_ANGULAR_VELOCITY,
+      uuid,
+      vec
+    });
+  };
+
   return {
     addBody,
     updateBody,
@@ -129,6 +161,10 @@ export const WorkerHelpers = function(ammoWorker) {
     removeConstraint,
     enableDebug,
     resetDynamicBody,
-    activateBody
+    activateBody,
+    applyForceToBody,
+    applyImpulseToBody,
+    setLinearVelocity,
+    setAngularVelocity
   };
 };
